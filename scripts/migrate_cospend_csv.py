@@ -21,7 +21,7 @@ class Category:
 class ExpensePaidFor:
     def __init__(self):
         self.participantId: str = ""
-        self.shares: int = 100
+        self.shares: int = 1
     
 class Expense:
     def __init__(self):
@@ -44,7 +44,7 @@ def migrate(projectName) -> None:
     group: Group = Group()
     group.name = projectName
     participants: dict(str, str) = {}
-    with open(projectName + ".csv", newline='') as csvfile:
+    with open(projectName + ".CSV", newline='') as csvfile:
         expenses = []
         spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for idx, row in enumerate(spamreader):
@@ -62,8 +62,7 @@ def migrate(projectName) -> None:
             for ower in owers:
                 expensePaidfor: ExpensePaidFor = ExpensePaidFor()
                 expensePaidfor.participantId = ower
-                if len(owers) == 1:
-                    expensePaidfor.shares = 10000
+                if (len(owers) == 1) or (row[5] == "1"):
                     expense.splitMode = "EVENLY"
                 elif ower == expense.paidById:
                     expensePaidfor.shares = int(float(row[5])*100*100)
