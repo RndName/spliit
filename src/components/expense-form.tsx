@@ -391,7 +391,7 @@ export function ExpenseForm({
                       <Input
                         className="text-base"
                         type="text"
-                        inputMode="decimal"
+                        //inputMode="decimal"
                         placeholder="0.00"
                         onChange={(event) => {
                           let v = event.target.value
